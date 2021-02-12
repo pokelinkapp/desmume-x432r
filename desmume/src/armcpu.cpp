@@ -35,6 +35,7 @@
 #include "arm_jit.h"
 #endif
 
+
 template<u32> static u32 armcpu_prefetch();
 
 FORCEINLINE u32 armcpu_prefetch(armcpu_t *armcpu) { 

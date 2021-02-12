@@ -41,6 +41,7 @@
 #include "MMU_timing.h"
 #include "firmware.h"
 #include "encrypt.h"
+#include "rpc/RPCServer.h"
 
 #ifdef DO_ASSERT_UNALIGNED
 #define ASSERT_UNALIGNED(x) assert(x)
@@ -901,6 +902,23 @@ static inline void MMU_VRAMmapControl(u8 block, u8 VRAMBankCnt)
 //////////////////////////////////////////////////////////////
 
 
+mMemory storage;
+int byteIndex = 0;
+
+__declspec(dllexport) mMemory RPCReadMemory(unsigned int address, unsigned int size) {
+	LOG("Request received\n");
+	storage.bytes.resize(size);
+	storage.size = size;
+
+	byteIndex = 0;
+
+	for (auto i = 0; i < address + size; i++) {
+		storage.bytes[byteIndex++] = _MMU_read08<ARMCPU_ARM9>(i);
+	}
+
+	return storage;
+}
+
 
 void MMU_Init(void)
 {
@@ -933,6 +951,8 @@ void MMU_Init(void)
 		INFO("Microphone init failed.\n");
 	else
 		INFO("Microphone successfully inited.\n");
+	
+	StartRpc(2346, &RPCReadMemory);
 } 
 
 void MMU_DeInit(void) {

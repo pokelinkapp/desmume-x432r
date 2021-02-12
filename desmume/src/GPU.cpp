@@ -56,7 +56,7 @@ CACHE_ALIGN u8 sprWin[256];
 
 u16			gpu_angle = 0;
 
-const size sprSizeTab[4][4] = 
+const gpuSize sprSizeTab[4][4] = 
 {
      {{8, 8}, {16, 8}, {8, 16}, {8, 8}},
      {{16, 16}, {32, 8}, {8, 32}, {8, 8}},
@@ -1537,7 +1537,7 @@ INLINE void render_sprite_Win (GPU * gpu, u16 l, u8 * src,
 
 // return val means if the sprite is to be drawn or not
 FORCEINLINE BOOL compute_sprite_vars(_OAM_ * spriteInfo, u16 l, 
-	size &sprSize, s32 &sprX, s32 &sprY, s32 &x, s32 &y, s32 &lg, int &xdir) {
+	gpuSize&sprSize, s32 &sprX, s32 &sprY, s32 &x, s32 &y, s32 &lg, int &xdir) {
 
 	x = 0;
 	// get sprite location and size
@@ -1594,7 +1594,7 @@ FORCEINLINE BOOL compute_sprite_vars(_OAM_ * spriteInfo, u16 l,
 
 //TODO - refactor this so there isnt as much duped code between rotozoomed and non-rotozoomed versions
 
-static u32 bmp_sprite_address(GPU* gpu, _OAM_ * spriteInfo, size sprSize, s32 y)
+static u32 bmp_sprite_address(GPU* gpu, _OAM_ * spriteInfo, gpuSize sprSize, s32 y)
 {
 	if (gpu->dispCnt().OBJ_BMP_mapping)
 	{
@@ -1644,7 +1644,7 @@ void GPU::_spriteRender(u8 * dst, u8 * dst_alpha, u8 * typeTab, u8 * prioTab)
 		//do we incur a cost if a sprite is disabled?? we guess so.
 		cost += 2;
 
-		size sprSize;
+		gpuSize sprSize;
 		s32 sprX, sprY, x, y, lg;
 		int xdir;
 		u8 prio, * src;

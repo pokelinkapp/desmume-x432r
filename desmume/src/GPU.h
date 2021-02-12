@@ -539,7 +539,7 @@ typedef struct
 {
 	 s16 x;
 	 s16 y;
-} size;
+} gpuSize;
 
 
 #define NB_PRIORITIES	4
@@ -832,7 +832,7 @@ namespace GPU_EXT
 void sprite1D(GPU * gpu, u16 l, u8 * dst, u8 * dst_alpha, u8 * typeTab, u8 * prioTab);
 void sprite2D(GPU * gpu, u16 l, u8 * dst, u8 * dst_alpha, u8 * typeTab, u8 * prioTab);
 
-extern const size sprSizeTab[4][4];
+extern const gpuSize sprSizeTab[4][4];
 
 typedef struct {
 	GPU * gpu;

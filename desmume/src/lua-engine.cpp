@@ -41,6 +41,8 @@
 #include <unistd.h>
 #endif
 
+#include "rpc/RPCHandler.h"
+
 using namespace std;
 
 
@@ -5542,8 +5544,34 @@ bool AnyLuaActive()
 	return false;
 }
 
+unsigned int byteIndex = 0;;
+
 void CallRegisteredLuaFunctions(LuaCallID calltype)
 {
+
+	if (calltype == LUACALL_AFTEREMULATION) {
+		const auto val = RPCHandler::RpcRequests.Dequeue();
+
+		if (val.Id != 0) {
+			LOG("Handling request %d\n", val.Id);
+			auto message = mMemory();
+			message.bytes.resize(val.Size);
+			message.size = val.Size;
+
+			byteIndex = 0;
+
+			for (auto i = val.Address; i < val.Address + val.Size; i++) {
+				message.bytes[byteIndex++] = _MMU_read08<ARMCPU_ARM9>(i);
+			}
+
+			LOG("Sending requested data to %d\n", val.Id);
+
+			RPCHandler::RpcResults.Set(val.Id, message);
+
+			LOG("Sent requested data to %d\n", val.Id);
+		}
+	}
+
 	assert((unsigned int)calltype < (unsigned int)LUACALL_COUNT);
 	const char* idstring = luaCallIDStrings[calltype];
 

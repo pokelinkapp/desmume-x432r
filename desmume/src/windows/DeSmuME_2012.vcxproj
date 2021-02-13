@@ -285,7 +285,7 @@
       <AdditionalDependencies>directx-x64-ddraw-dinput8-dsound-dxerr8-dxguid.lib;lua51.lib;glib-vc8-x64.lib;zlib-vc8-x64.lib;agg-2.5-x64.lib;vfw32.lib;winmm.lib;opengl32.lib;glu32.lib;ws2_32.lib;user32.lib;gdi32.lib;shell32.lib;comdlg32.lib;shlwapi.lib;comctl32.lib;rpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)_x64_debug.exe</OutputFile>
       <AdditionalLibraryDirectories>.\zlib123;agg;.libs\x64;.libs</AdditionalLibraryDirectories>
-      <DelayLoadDLLs>wpcap.dll;lua51.dll</DelayLoadDLLs>
+      <DelayLoadDLLs>wpcap.dll;</DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -331,7 +331,8 @@
       <AdditionalDependencies>directx-x64-ddraw-dinput8-dsound-dxerr8-dxguid.lib;lua51.lib;glib-vc8-x64.lib;zlib-vc8-x64.lib;agg-2.5-x64.lib;vfw32.lib;winmm.lib;opengl32.lib;glu32.lib;ws2_32.lib;user32.lib;gdi32.lib;shell32.lib;comdlg32.lib;shlwapi.lib;comctl32.lib;rpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)_x64_release.exe</OutputFile>
       <AdditionalLibraryDirectories>.\zlib123;agg;.libs\x64;.libs</AdditionalLibraryDirectories>
-      <DelayLoadDLLs>lua51.dll;rpc.dll;</DelayLoadDLLs>
+      <DelayLoadDLLs>
+      </DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OptimizeReferences>true</OptimizeReferences>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -377,7 +378,7 @@
       <AdditionalDependencies>directx-x64-ddraw-dinput8-dsound-dxerr8-dxguid.lib;lua51.lib;glib-vc8-x64.lib;zlib-vc8-x64.lib;agg-2.5-x64.lib;vfw32.lib;winmm.lib;opengl32.lib;glu32.lib;ws2_32.lib;user32.lib;gdi32.lib;shell32.lib;comdlg32.lib;shlwapi.lib;comctl32.lib;rpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)_x64_dev+.exe</OutputFile>
       <AdditionalLibraryDirectories>.\zlib123;agg;.libs\x64;.libs</AdditionalLibraryDirectories>
-      <DelayLoadDLLs>wpcap.dll;lua51.dll;rpc.dll;</DelayLoadDLLs>
+      <DelayLoadDLLs>wpcap.dll</DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OptimizeReferences>true</OptimizeReferences>
       <LinkTimeCodeGeneration>
@@ -452,6 +453,7 @@
     <ClCompile Include="..\readwrite.cpp" />
     <ClCompile Include="..\render3D.cpp" />
     <ClCompile Include="..\ROMReader.cpp" />
+    <ClCompile Include="..\rpc\RPCHandler.cpp" />
     <ClCompile Include="..\rtc.cpp" />
     <ClCompile Include="..\saves.cpp" />
     <ClCompile Include="..\slot1.cpp" />
@@ -730,6 +732,7 @@
     <ClInclude Include="..\registers.h" />
     <ClInclude Include="..\render3D.h" />
     <ClInclude Include="..\ROMReader.h" />
+    <ClInclude Include="..\rpc\RPCHandler.h" />
     <ClInclude Include="..\rtc.h" />
     <ClInclude Include="..\saves.h" />
     <ClInclude Include="..\shaders.h" />

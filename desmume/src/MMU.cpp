@@ -42,6 +42,7 @@
 #include "firmware.h"
 #include "encrypt.h"
 #include "rpc/RPCServer.h"
+#include "rpc/RPCHandler.h"
 
 #ifdef DO_ASSERT_UNALIGNED
 #define ASSERT_UNALIGNED(x) assert(x)
@@ -901,22 +902,32 @@ static inline void MMU_VRAMmapControl(u8 block, u8 VRAMBankCnt)
 //end vram
 //////////////////////////////////////////////////////////////
 
+unsigned int currentId = 10;
 
-mMemory storage;
-int byteIndex = 0;
-
-__declspec(dllexport) mMemory RPCReadMemory(unsigned int address, unsigned int size) {
+__declspec(dllexport) void RPCReadMemory(unsigned int address, unsigned int size, char* data) {
 	LOG("Request received\n");
-	storage.bytes.resize(size);
-	storage.size = size;
 
-	byteIndex = 0;
+    const auto id = currentId++;
 
-	for (auto i = 0; i < address + size; i++) {
-		storage.bytes[byteIndex++] = _MMU_read08<ARMCPU_ARM9>(i);
+	MemoryRequest request = {id, address, size};
+
+	RPCHandler::RpcRequests.Enqueue(request);
+
+	LOG("Created request %d\n", id);
+
+	while(!RPCHandler::RpcResults.Contains(id)) {
+	    
 	}
 
-	return storage;
+	LOG("Recieved data for %d\n", id);
+
+	const auto val = RPCHandler::RpcResults.Get(id);
+
+	for (auto i = 0; i < val.size; i++) {
+		data[i] = val.bytes[i];
+	}
+
+	RPCHandler::RpcResults.Remove(id);
 }
 
 
@@ -952,7 +963,7 @@ void MMU_Init(void)
 	else
 		INFO("Microphone successfully inited.\n");
 	
-	StartRpc(2346, &RPCReadMemory);
+	Rpc::StartRpc(2346, &RPCReadMemory);
 } 
 
 void MMU_DeInit(void) {

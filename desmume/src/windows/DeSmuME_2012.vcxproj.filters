@@ -67,6 +67,9 @@
     <Filter Include="Windows\libs">
       <UniqueIdentifier>{191da306-49b9-43b4-a4d9-d91dd3a18db8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\utils\rpcHandler">
+      <UniqueIdentifier>{c47c5e5d-4339-49dd-8913-e7c7a707a305}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\aggdraw.cpp">
@@ -802,6 +805,9 @@
     <ClCompile Include="..\filter\xbrz.cpp">
       <Filter>Core\filter</Filter>
     </ClCompile>
+    <ClCompile Include="..\rpc\RPCHandler.cpp">
+      <Filter>Core\utils\rpcHandler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\arm_jit.h">
@@ -1418,6 +1424,9 @@
     </ClInclude>
     <ClInclude Include="..\filter\xbrz.h">
       <Filter>Core\filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\rpc\RPCHandler.h">
+      <Filter>Core\utils\rpcHandler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

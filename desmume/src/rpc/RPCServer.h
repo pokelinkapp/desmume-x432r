@@ -4,6 +4,6 @@
 #include "RPCData.h"
 
 namespace Rpc {
-    __declspec(dllexport) void StartRpc(const int port, void(*handler)(unsigned int, unsigned int, char*));
+    __declspec(dllexport) void StartRpc(const int port, void(*handler)(unsigned int, unsigned int, unsigned char*));
 }
 #endif

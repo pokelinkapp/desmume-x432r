@@ -8,6 +8,6 @@
 class RPCHandler {
 public:
     static SafeQueue<MemoryRequest> RpcRequests;
-    static ThreadSafeMap<unsigned int, mMemory> RpcResults;
+    static ThreadSafeMap<unsigned int, bool> RpcResults;
 };
 #endif

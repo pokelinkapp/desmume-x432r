@@ -5545,6 +5545,7 @@ bool AnyLuaActive()
 }
 
 unsigned int byteIndex = 0;;
+bool dummy = true;
 
 void CallRegisteredLuaFunctions(LuaCallID calltype)
 {
@@ -5554,19 +5555,16 @@ void CallRegisteredLuaFunctions(LuaCallID calltype)
 
 		if (val.Id != 0) {
 			LOG("Handling request %d\n", val.Id);
-			auto message = mMemory();
-			message.bytes.resize(val.Size);
-			message.size = val.Size;
 
 			byteIndex = 0;
 
 			for (auto i = val.Address; i < val.Address + val.Size; i++) {
-				message.bytes[byteIndex++] = _MMU_read08<ARMCPU_ARM9>(i);
+				val.Data[byteIndex++] = _MMU_read08<ARMCPU_ARM9>(i);
 			}
 
 			LOG("Sending requested data to %d\n", val.Id);
 
-			RPCHandler::RpcResults.Set(val.Id, message);
+			RPCHandler::RpcResults.Set(val.Id, dummy);
 
 			LOG("Sent requested data to %d\n", val.Id);
 		}

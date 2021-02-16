@@ -904,12 +904,12 @@ static inline void MMU_VRAMmapControl(u8 block, u8 VRAMBankCnt)
 
 unsigned int currentId = 10;
 
-__declspec(dllexport) void RPCReadMemory(unsigned int address, unsigned int size, char* data) {
+__declspec(dllexport) void RPCReadMemory(unsigned int address, unsigned int size, unsigned char* data) {
 	LOG("Request received\n");
 
     const auto id = currentId++;
 
-	MemoryRequest request = {id, address, size};
+    const MemoryRequest request = {id, address, size, data};
 
 	RPCHandler::RpcRequests.Enqueue(request);
 
@@ -920,12 +920,6 @@ __declspec(dllexport) void RPCReadMemory(unsigned int address, unsigned int size
 	}
 
 	LOG("Recieved data for %d\n", id);
-
-	const auto val = RPCHandler::RpcResults.Get(id);
-
-	for (auto i = 0; i < val.size; i++) {
-		data[i] = val.bytes[i];
-	}
 
 	RPCHandler::RpcResults.Remove(id);
 }

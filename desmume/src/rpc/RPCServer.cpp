@@ -4,7 +4,7 @@
 
 rpc::server* server;
 
-__declspec(dllexport) void Rpc::StartRpc(const int port, void(*handler)(unsigned int, unsigned int, char*)) {
+__declspec(dllexport) void Rpc::StartRpc(const int port, void(*handler)(unsigned int, unsigned int, unsigned char*)) {
 
 	if (server != nullptr) {
 		server->close_sessions();
@@ -14,7 +14,7 @@ __declspec(dllexport) void Rpc::StartRpc(const int port, void(*handler)(unsigned
 	server = new rpc::server(port);
 
 	server->bind("readMemory", [handler](unsigned int address, unsigned int size) {
-		auto* data = new char[size];
+		auto* data = new unsigned char[size];
         handler(address, size, data);
 
 		auto pass = mMemory();

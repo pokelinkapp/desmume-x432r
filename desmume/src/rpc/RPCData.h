@@ -6,8 +6,8 @@ struct MemoryRequest {
     unsigned int Id;
     unsigned int Address;
     unsigned int Size;
+    unsigned char* Data;
 };
-
 
 struct mMemory {
 	unsigned int size;

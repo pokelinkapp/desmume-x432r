@@ -924,6 +924,26 @@ __declspec(dllexport) void RPCReadMemory(unsigned int address, unsigned int size
 	RPCHandler::RpcResults.Remove(id);
 }
 
+__declspec(dllexport) void RPCReadRom(unsigned int& size, unsigned char* data) {
+	LOG("Sending rom data\n")
+
+	size = gameInfo.romsize;
+
+	char buff[4];
+
+	for (auto i = 0; i < size; i += 4) {
+		auto romBuff = gameInfo.readROM(i);
+		memcpy(buff, &romBuff, 4);
+		for (auto j = 0; j < 4; j++) {
+			data[i + j] = buff[j];
+		}
+	}
+}
+
+__declspec(dllexport) const char* RPCGetSerial() {
+	return gameInfo.ROMserial;
+}
+
 
 void MMU_Init(void)
 {
@@ -957,7 +977,7 @@ void MMU_Init(void)
 	else
 		INFO("Microphone successfully inited.\n");
 	
-	Rpc::StartRpc(2346, &RPCReadMemory);
+	Rpc::StartRpc(2346, &RPCReadMemory, &RPCReadRom, &RPCGetSerial);
 } 
 
 void MMU_DeInit(void) {

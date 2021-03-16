@@ -43,9 +43,7 @@ __declspec(dllexport) void Rpc::StartRpc(const int port, void(*handler)(unsigned
 		pass.size = size;
 		pass.bytes.resize(pass.size);
 
-		for (auto i = 0u; i < size; i++) {
-			pass.bytes[i] = buff[i];
-		}
+		memcpy(pass.bytes.data(), buff, size);
 
 		delete[] buff;
 

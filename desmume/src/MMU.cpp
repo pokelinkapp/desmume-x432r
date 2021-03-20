@@ -940,10 +940,6 @@ __declspec(dllexport) void RPCReadRom(unsigned int& size, unsigned char* data) {
 	}
 }
 
-__declspec(dllexport) const char* RPCGetSerial() {
-	return gameInfo.ROMserial;
-}
-
 
 void MMU_Init(void)
 {
@@ -977,7 +973,7 @@ void MMU_Init(void)
 	else
 		INFO("Microphone successfully inited.\n");
 	
-	Rpc::StartRpc(2346, &RPCReadMemory, &RPCReadRom, &RPCGetSerial);
+	Rpc::StartRpc(2346, &RPCReadMemory, &RPCReadRom);
 } 
 
 void MMU_DeInit(void) {

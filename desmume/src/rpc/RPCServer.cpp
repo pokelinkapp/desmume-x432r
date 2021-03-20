@@ -4,7 +4,7 @@
 
 rpc::server* server;
 
-__declspec(dllexport) void Rpc::StartRpc(const int port, void(*handler)(unsigned int, unsigned int, unsigned char*), void(*romHandler)(unsigned int&, unsigned char*), const char* (*serialHandler)()) {
+__declspec(dllexport) void Rpc::StartRpc(const int port, void(*handler)(unsigned int, unsigned int, unsigned char*), void(*romHandler)(unsigned int&, unsigned char*)) {
 
 	if (server != nullptr) {
 		server->close_sessions();
@@ -48,10 +48,6 @@ __declspec(dllexport) void Rpc::StartRpc(const int port, void(*handler)(unsigned
 		delete[] buff;
 
 		return pass;
-	});
-
-	server->bind("getSerial", [serialHandler]() {
-		return std::string(serialHandler());
 	});
 
 	vprintf("Server started\n", nullptr);
